@@ -1,5 +1,6 @@
 ﻿using DeveloperStore.SalesApi.Data;
 using DeveloperStore.SalesApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace DeveloperStore.SalesApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+//[Authorize]
 public class SalesController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
