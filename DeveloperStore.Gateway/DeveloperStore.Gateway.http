@@ -1,0 +1,6 @@
+@DeveloperStore.Gateway_HostAddress = http://localhost:5269
+
+GET {{DeveloperStore.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

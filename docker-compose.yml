@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: developerstore
+    ports:
+      - "5432:5432"
+    networks:
+      - developerstore-network
+
+  developerstore-gateway:
+    build:
+      context: ./DeveloperStore.Gateway
+    container_name: developerstore-gateway
+    ports:
+      - "7777:80"
+    depends_on:
+      - developerstore-salesapi
+    networks:
+      - developerstore-network
+
+  developerstore-salesapi:
+    build:
+      context: ./DeveloperStore.SalesApi
+    container_name: developerstore-salesapi
+    ports:
+      - "5000:80"
+    depends_on:
+      - postgres-db
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Database=developerstore;Username=admin;Password=admin
+    networks:
+      - developerstore-network
+
+networks:
+  developerstore-network:
+    driver: bridge
